@@ -8,6 +8,8 @@ RUN apt-get update -y ;\
     docker-php-ext-install -j$(nproc) xsl
 RUN apt-get install -y git
 
+RUN echo "memory_limit=512M" > /usr/local/etc/php/conf.d/memory_limit.ini
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # RUN COMPOSER_HOME="/composer" composer global require --prefer-dist --no-progress --dev theseer/phpdox${PACKAGIST_NAME}:${VERSION}
 # ENV PATH /composer/vendor/bin:${PATH}

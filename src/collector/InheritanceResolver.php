@@ -225,7 +225,9 @@ class InheritanceResolver {
         $this->project->registerForSaving($unit);
         $this->project->registerForSaving($trait);
 
-        $trait->addUser($unit);
+        if (method_exists($trait, "addUser")){
+            $trait->addUser($unit);
+        }
         $unit->importTraitExports($trait, $use);
 
         if ($trait->hasExtends()) {
