@@ -12,11 +12,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # RUN COMPOSER_HOME="/composer" composer global require --prefer-dist --no-progress --dev theseer/phpdox${PACKAGIST_NAME}:${VERSION}
 # ENV PATH /composer/vendor/bin:${PATH}
 
-WORKDIR /opt
-RUN apt-get install -y zip
-RUN git clone https://github.com/theseer/phpdox.git ;\
-    cd phpdox ;\
-    composer install 
+COPY . /opt/phpdox
+WORKDIR /opt/phpdox
+RUN composer install 
+
 ENV PATH /opt/phpdox:${PATH}
 # Add entrypoint script
 
@@ -32,4 +31,4 @@ LABEL org.label-schema.schema-version="1.0" \
 
 WORKDIR "/app"
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["phpdox"]
+CMD ["/opt/phpdox/phpdox"]
