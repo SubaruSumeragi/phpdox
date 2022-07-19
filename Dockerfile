@@ -16,14 +16,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 COPY . /opt/phpdox
 WORKDIR /opt/phpdox
-RUN composer install 
+RUN COMPOSER_ALLOW_SUPERUSER=1 \
+    composer install 
 
 ENV PATH /opt/phpdox:${PATH}
-# Add entrypoint script
-
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
-
 # Add image labels
 
 LABEL org.label-schema.schema-version="1.0" \
@@ -32,5 +28,5 @@ LABEL org.label-schema.schema-version="1.0" \
 # Package container
 
 WORKDIR "/app"
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/opt/phpdox/phpdox"]
+ENTRYPOINT ["php" , "/opt/phpdox/phpdox"]
+CMD ["--help"]
