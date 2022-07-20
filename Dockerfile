@@ -28,5 +28,5 @@ LABEL org.label-schema.schema-version="1.0" \
 # Package container
 
 WORKDIR "/app"
-ENTRYPOINT ["php" , "/opt/phpdox/phpdox"]
+ENTRYPOINT ["phpdox"]
 CMD ["--help"]
