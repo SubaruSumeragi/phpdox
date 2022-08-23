@@ -2,6 +2,7 @@
 /.project
 /.settings
 /.idea
+/.vscode
 /build
 /phpunit.xml
 /phpdoc
